@@ -58,7 +58,21 @@ config :vintage_net,
        type: VintageNetEthernet,
        ipv4: %{method: :dhcp}
      }},
-    {"wlan0", %{type: VintageNetWiFi}}
+    {"wlan0",
+     %{
+       type: VintageNetWiFi,
+       vintage_net_wifi: %{
+         networks: [
+           %{
+             key_mgmt: :wpa_psk,
+             ssid:
+               System.get_env("WIFI_SSID") || raise("Environment variable WIFI_SSID is missing."),
+             psk: System.get_env("WIFI_PSK") || raise("Environment variable WIFI_PSK is missing.")
+           }
+         ]
+       },
+       ipv4: %{method: :dhcp}
+     }}
   ]
 
 config :mdns_lite,
