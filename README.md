@@ -26,6 +26,8 @@ To start your Nerves app:
 
 Here is an example of blinking an LED in various timings.
 
+### Handmade GenServer powered Pwm Scheduler
+
 ```ex
 # A GPIO pin for an LED.
 gpio_pin = 12
@@ -64,6 +66,17 @@ which is probably fast enough to dim the brightness of an LED.
 
 If you need faster and more precise PWM, please consider alternative approaches, such as accessing
 the target device's built-in hardware PWM, using an external PWM driver board, etc.
+
+### Hardware PWM using the [tokafish/pigpiox](https://github.com/tokafish/pigpiox) library
+
+```
+gpio = 12
+frequency = 800
+Pigpiox.Pwm.hardware_pwm(gpio, frequency, 1_000_000) # 100%
+Pigpiox.Pwm.hardware_pwm(gpio, frequency, 500_000)   # 50%
+Pigpiox.Pwm.hardware_pwm(gpio, frequency, 100_000)   # 10%
+Pigpiox.Pwm.hardware_pwm(gpio, frequency, 10_000)    # 1%
+```
 
 ## Learn more
 
